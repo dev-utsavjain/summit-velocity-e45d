@@ -1,0 +1,170 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-02-19T10:02:52.601685336Z",
+  "total_tasks": 13,
+  "completed_tasks": 3,
+  "failed_tasks": 0,
+  "status": "in_progress",
+  "tasks": [
+    {
+      "id": "task_001",
+      "category": "database",
+      "type": "model",
+      "title": "Task model schema",
+      "description": "Define the PostgreSQL Task model using GORM with fields: id (UUID PRIMARY KEY), title (VARCHAR(255) NOT NULL), description (TEXT), status (VARCHAR(50) DEFAULT 'pending'), user_id (UUID), created_at (TIMESTAMP DEFAULT CURRENT_TIMESTAMP), updated_at (TIMESTAMP DEFAULT CURRENT_TIMESTAMP). Add indexes on status, created_at, and user_id.",
+      "status": "pending",
+      "dependencies": [],
+      "file_path": "backend/models/Task.go"
+    },
+    {
+      "id": "task_002",
+      "category": "backend",
+      "type": "api",
+      "title": "GET /api/tasks endpoint",
+      "description": "Implement GET /api/tasks handler to retrieve all tasks. Response JSON must contain active (number), completed (number), tasks (array of task objects), and total (number). Use GORM to query tasks, compute counts, and return 200 status.",
+      "status": "pending",
+      "dependencies": [
+        "task_001"
+      ],
+      "file_path": "backend/routes/get_tasks.go"
+    },
+    {
+      "id": "task_003",
+      "category": "backend",
+      "type": "api",
+      "title": "POST /api/tasks endpoint",
+      "description": "Implement POST /api/tasks handler to create a new task. Accept JSON body with title (string), description (string), status (string: pending/completed). Validate required fields, generate UUID id, set timestamps, insert via GORM, and return 201 with full task object including created_at and updated_at.",
+      "status": "pending",
+      "dependencies": [
+        "task_001"
+      ],
+      "file_path": "backend/routes/create_task.go"
+    },
+    {
+      "id": "task_004",
+      "category": "backend",
+      "type": "api",
+      "title": "PUT /api/tasks/:id endpoint",
+      "description": "Implement PUT /api/tasks/:id handler to update an existing task. Accept optional JSON fields: title, description, status. Validate UUID id, find task by id, apply updates, set updated_at, save via GORM, and return 200 with updated task object or 404 if not found.",
+      "status": "pending",
+      "dependencies": [
+        "task_001"
+      ],
+      "file_path": "backend/routes/update_task.go"
+    },
+    {
+      "id": "task_005",
+      "category": "backend",
+      "type": "api",
+      "title": "DELETE /api/tasks/:id endpoint",
+      "description": "Implement DELETE /api/tasks/:id handler to delete a specific task. Validate UUID id, delete task via GORM, and return 200 with JSON containing deleted_task_id (string) and message (string). Return 404 if task not found.",
+      "status": "pending",
+      "dependencies": [
+        "task_001"
+      ],
+      "file_path": "backend/routes/delete_task.go"
+    },
+    {
+      "id": "task_006",
+      "category": "frontend",
+      "type": "component",
+      "title": "Navigation component",
+      "description": "Create a glassmorphism header Navigation component using React and Tailwind CSS. Props: currentPage (string). Display logo, navigation links for Task Dashboard (/) and About (/about), plus Stats and Settings buttons. Style with primary color #5E6AD2, soft shadows, large border radius, Inter font, subtle interactions, and Framer Motion hover animations.",
+      "status": "pending",
+      "dependencies": [],
+      "file_path": "frontend/src/components/Navigation.jsx"
+    },
+    {
+      "id": "task_007",
+      "category": "frontend",
+      "type": "component",
+      "title": "TaskInput component",
+      "description": "Create a shared TaskInput form component. Props: onSubmit (func), placeholder (string), maxLength (number). Include controlled inputs for title and description, a submit button, and real-time character count. Style with glassmorphism, soft shadows, primary color accents, and smooth transitions using Framer Motion.",
+      "status": "pending",
+      "dependencies": [],
+      "file_path": "frontend/src/components/TaskInput.jsx"
+    },
+    {
+      "id": "task_008",
+      "category": "frontend",
+      "type": "component",
+      "title": "TaskItem component",
+      "description": "Create a reusable TaskItem card component. Props: task (object), onToggle (func), onEdit (func), onDelete (func), onUpdate (func). Display checkbox, title, description preview, edit and delete buttons, and completion timestamp. Implement inline editing, glassmorphism styling, soft shadows, accent color #00D4AA for completed state, and Framer Motion animations for interactions.",
+      "status": "pending",
+      "dependencies": [],
+      "file_path": "frontend/src/components/TaskItem.jsx"
+    },
+    {
+      "id": "task_009",
+      "category": "frontend",
+      "type": "component",
+      "title": "FilterBar component",
+      "description": "Create a FilterBar component for task status filtering. Props: activeFilter (string), onFilterChange (func). Provide three filter buttons: All, Active, Completed. Highlight active filter with primary color #5E6AD2, glassmorphism background, soft shadows, and Framer Motion click animations.",
+      "status": "pending",
+      "dependencies": [],
+      "file_path": "frontend/src/components/FilterBar.jsx"
+    },
+    {
+      "id": "task_010",
+      "category": "frontend",
+      "type": "component",
+      "title": "TaskStats component",
+      "description": "Create a TaskStats summary component. Props: tasks (array). Display total tasks, active count, completed count, and a progress bar showing completion percentage. Style with glassmorphism, secondary color #F0F2F5 background, primary color #5E6AD2 progress bar, soft shadows, and subtle animations.",
+      "status": "pending",
+      "dependencies": [],
+      "file_path": "frontend/src/components/TaskStats.jsx"
+    },
+    {
+      "id": "task_011",
+      "category": "frontend",
+      "type": "page",
+      "title": "Task Dashboard page",
+      "description": "Build the Task Dashboard page (route /). Sections: Hero with welcome message, TaskInput form, FilterBar, scrollable TaskList rendering TaskItem components, and TaskStats. Manage state for tasks array and active filter. Implement CRUD operations using axios to call GET /api/tasks, POST /api/tasks, PUT /api/tasks/:id, DELETE /api/tasks/:id. Use React Context for state, glassmorphism theme, responsive layout, and Framer Motion page transitions. Full system context: pages=[/,/about], apis=[GET /api/tasks,POST /api/tasks,PUT /api/tasks/:id,DELETE /api/tasks/:id], models=[Task].",
+      "status": "completed",
+      "dependencies": [
+        "task_006",
+        "task_007",
+        "task_008",
+        "task_009",
+        "task_010",
+        "task_002",
+        "task_003",
+        "task_004",
+        "task_005"
+      ],
+      "file_path": "frontend/src/pages/TaskDashboard.jsx",
+      "started_at": "2026-02-19T10:02:56.00710767Z",
+      "completed_at": "2026-02-19T10:03:29.425103474Z"
+    },
+    {
+      "id": "task_012",
+      "category": "frontend",
+      "type": "page",
+      "title": "About page",
+      "description": "Build the About page (route /about). Sections: Hero with app branding, Feature Showcase cards highlighting key capabilities, How It Works step-by-step guide, and Contact Information. Use glassmorphism cards, Inter font, primary color #5E6AD2, accent color #00D4AA, soft shadows, large border radius, moderate animations, and Framer Motion scroll animations. Full system context: pages=[/,/about], apis=[GET /api/tasks,POST /api/tasks,PUT /api/tasks/:id,DELETE /api/tasks/:id], models=[Task].",
+      "status": "completed",
+      "dependencies": [
+        "task_006"
+      ],
+      "file_path": "frontend/src/pages/About.jsx",
+      "started_at": "2026-02-19T10:03:29.546931507Z",
+      "completed_at": "2026-02-19T10:03:51.523497418Z"
+    },
+    {
+      "id": "task_013",
+      "category": "frontend",
+      "type": "page",
+      "title": "App.jsx entry point",
+      "description": "Create the main App.jsx component. Set up React Router with routes for / (TaskDashboard) and /about (About). Include Navigation component at top and footer with links to Privacy Policy, Terms of Service, Support, GitHub. Apply global glassmorphism theme with Tailwind, Inter font, primary #5E6AD2, secondary #F0F2F5, accent #00D4AA, soft shadows, large border radius, moderate animations. Provide React Context for task state. Full system context: pages=[/,/about], apis=[GET /api/tasks,POST /api/tasks,PUT /api/tasks/:id,DELETE /api/tasks/:id], models=[Task].",
+      "status": "completed",
+      "dependencies": [
+        "task_011",
+        "task_012",
+        "task_006"
+      ],
+      "file_path": "frontend/src/App.jsx",
+      "started_at": "2026-02-19T10:03:51.667640803Z",
+      "completed_at": "2026-02-19T10:03:54.213304383Z"
+    }
+  ]
+}
